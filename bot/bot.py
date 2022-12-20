@@ -55,6 +55,8 @@ async def ban_message(message):
     else:
         warning = cursor.execute(f'select Warnings from BannedUsers where ID = \'{message.from_user.id}\' and ChatID = \'{message.chat.id}\'').fetchone()
         if warning is not None:
+            if warning[0] == 3:
+                return
             warning = warning[0]
             cursor.execute(
                 f'UPDATE BannedUsers SET Warnings = {warning + 1} WHERE ID = \'{message.from_user.id}\' and ChatID = \'{message.chat.id}\'')

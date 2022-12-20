@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  bot:
+    build: .
+    ports:
+      - "5555:5555"
+    container_name: evas-bot
+    volumes:
+      - ./data/:/ipr-bot/db/
+    depends_on:
+      - db
+
+  db:
+    image: nouchka/sqlite3:latest
+    container_name: evas-bot-db
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data/:/ipr-bot/db/
+
+
